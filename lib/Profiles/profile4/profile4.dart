@@ -27,13 +27,8 @@ class _Profile4State extends State<Profile4> {
                 Icon(Icons.more_vert),
               ],
             ),
-            body: Stack(
-              children: [
-                _mainContent(context),
-              ],
-            ),
+            body: _mainContent(context),
           ),
-          _profileImage(context),
         ],
       ),
     );
@@ -42,21 +37,22 @@ class _Profile4State extends State<Profile4> {
 // WIDGETS =====================================================================
 
   Widget _mainContent(context) {
-    return Positioned(
-      bottom: 0,
-      left: 10,
-      right: 10,
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.45,
+        height: MediaQuery.of(context).size.height * 0.50,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _namePhotographyText(context),
+            _profileImage(context),
+            ..._namePhotographyText(context),
             Divider(),
             _counters(context),
           ],
@@ -74,76 +70,77 @@ class _Profile4State extends State<Profile4> {
   }
 
   Widget _profileImage(context) {
-    return Positioned(
-        left: 16,
-        bottom: MediaQuery.of(context).size.height * 0.29,
-        right: 16,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 08, right: 24, top: 08),
-              width: 85,
-              height: 85,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: ExactAssetImage('assets/images/profiles/bg4.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            RaisedButton(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              onPressed: () => null,
-              child: Text('ADD FRIEND'),
-            ),
-            SizedBox(
-              width: 08,
-            ),
-            RaisedButton(
-              color: Colors.black54,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              onPressed: () => null,
-              child: Text('Follow'),
-            ),
-          ],
-        ));
-  }
-
-  Widget _namePhotographyText(context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(horizontal: 08),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Container(
+            width: 85,
+            height: 85,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: ExactAssetImage('assets/images/profiles/bg4.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Spacer(),
+          RaisedButton(
+            color: Colors.transparent,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.black, width: 1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            onPressed: () => null,
+            child: Text('ADD FRIEND'),
+          ),
           SizedBox(
-            height: 92,
+            width: 08,
           ),
-          Text(
-            profile.user.name,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 04),
-            child: Text('Photography',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                )),
-          ),
-          Text(
-            'Published Wedding beauty , fasion, portrait\nPhotographer and retoucher',
-            style: TextStyle(letterSpacing: 1.01),
+          RaisedButton(
+            color: Colors.black54,
+            textColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            onPressed: () => null,
+            child: Text('Follow'),
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> _namePhotographyText(context) {
+    return [
+      Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: Text(
+          profile.user.name,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: Text(profile.user.profession,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+            )),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ),
+        child: Text(
+          profile.user.aboutMe,
+          style: TextStyle(letterSpacing: 1.01),
+        ),
+      ),
+    ];
   }
 
   Widget _counters(context) {

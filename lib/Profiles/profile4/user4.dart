@@ -1,7 +1,11 @@
 class User {
   String name;
+  String profession;
+  String aboutMe;
   User({
     this.name,
+    this.profession,
+    this.aboutMe,
   });
 }
 
