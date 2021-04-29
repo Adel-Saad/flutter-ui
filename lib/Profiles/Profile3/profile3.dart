@@ -9,7 +9,7 @@ class Profile3 extends StatefulWidget {
 class _Profile3State extends State<Profile3> {
 // props ....
   var profile = Profile3Provider.getProfile();
-
+  bool _visible = false;
 // Main Build ....
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,16 @@ class _Profile3State extends State<Profile3> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+        _visible = true;
+      });
+    });
   }
 
 // Methods =====================================================================
